@@ -88,7 +88,7 @@ To set the SOAR variable, follow this path through Eclipse:
 
 soar-datacollector uses the [BSD](http://www.opensource.org/licenses/bsd-license.php) license, the same as Soar.
 
-Copyright (c) 2012, Jonathan Voigt
+Copyright (c) 2012, The Regents of the University of Michigan, Jonathan Voigt
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
