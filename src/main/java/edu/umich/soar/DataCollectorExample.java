@@ -17,17 +17,17 @@ public class DataCollectorExample
         Kernel kernel = sml.Kernel.CreateKernelInNewThread();
         final Agent agent = kernel.CreateAgent("soar");
         
-        // Use SoarProperties to find some demo code
-        SoarProperties sp = new SoarProperties();
-        StringBuilder productions = new StringBuilder(sp.getPrefix());
-        productions.append("share/soar/Demos/arithmetic/arithmetic.soar");
-        
         // TODO: Need a custom agent that generates some more interesting stats
-        if (!agent.LoadProductions(productions.toString()))
+        try
         {
-            System.err.println("Failed to load: " + productions.toString());
-            return;
+            ProductionUtils.sourceAgentFromJar(agent, "/agents/Arithmetic/arithmetic.soar");
         }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(1);
+        }
+        
         
         final DataCollector dc = new DataCollector();
         
