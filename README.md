@@ -115,6 +115,29 @@ This error means you did not succeed in telling it how to find the Soar dynamic 
 
 A [full example](https://github.com/voigtjr/soar-datacollector/blob/master/src/main/java/edu/umich/soar/DataCollectorExample.java) is included in the project source.
 
+# Implementation Details and Motivation
+
+`DataCollector` collects statistics on Soar agents as they execute. This can be a tricky affair because of subtle performance gotchas when dealing with the Soar/SML application stack.
+
+Basic usage of this class involves calling methods during three kernel events: system start, system stop, and update (after all output phases). These event interfaces aren't implemented directly by this class so that it is as flexible as possible when introducing it to an existing code base and also so that these calls can be added to existing callbacks instead of creating new ones for it -- callbacks can be very expensive.
+
+Actual data collection can be performed whenever the user likes by calling the collect method to add another row to the data table. Most often these calls to collect are managed by the return value of `onUpdateEvent`. If `onUpdateEvent` returns true, it indicates that collect needs to be called for each agent. Note that, even if its return value is ignored, it must still be called each decision cycle.
+
+The behavior of `onUpdateEvent` can be configured by the user in two different ways for the specific needs of the data collection: by decision cycle period or wall clock time period. To collect data every n decision cycles, `setPeriodCycles` is called with the desired period. To collect data every n milliseconds, `setPeriodMillis` is called with the desired period.
+
+The data is collected in a simple csv format written to an output stream of the user's choice. Nothing is set by default so no data is collected until `setOutputStream` is called with a valid output stream. The first line will be a csv list of column headers (see class documentation). The first line of data will also include a value for the "settings" column, and it will be various agent configuration information relevant to the data being collected. This settings data is very helpful for sanity checks of the data, and it also includes a timestamp.
+
+Flushing the data to the stream can be very expensive, so it is not called during a run. The stream is flushed automatically during `onStop` and any call to collect after that until `onStart` is called.
+
+Statistics collected during a run include (see class documentation for full details):
+
+* cumulative cpu usage times
+* number of productions fired
+* working memory size, high and low water marks
+* working memory deltas
+* maximum/minimum decision cycle times, wm deltas, production firings
+* epmem and smem statistics including memory, queries, stores, retrieves
+
 # License
 
 soar-datacollector uses the [BSD](http://www.opensource.org/licenses/bsd-license.php) license, the same as Soar.
