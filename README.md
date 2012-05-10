@@ -12,7 +12,7 @@ General information on soar-datacollector is in the [slides](https://raw.github.
 
 # Compilation
 
-soar-datacollector uses the `sml.jar` found in [Soar 9.3.1](http://soar.googlecode.com/).
+soar-datacollector uses the `sml.jar` found in [Soar 9.3.2](http://code.google.com/p/soar/wiki/Downloads?tm=2).
 
 Tell Eclipse where to find this jar by defining the `SOARBIN` build path (not environment) variable:
 
@@ -32,7 +32,7 @@ soar-datacollector depends on (included in `lib`):
 * [commons-logging-1.1.1.jar](https://github.com/voigtjr/soar-datacollector/raw/master/lib/commons-logging-1.1.1.jar)
 * [log4j-1.2.15.jar](https://github.com/voigtjr/soar-datacollector/raw/master/lib/log4j-1.2.15.jar)
 
-soar-datacollector also depends on `sml.jar` found in [Soar 9.3.1](http://soar.googlecode.com/).
+soar-datacollector also depends on `sml.jar` found in [Soar 9.3.2](http://code.google.com/p/soar/wiki/Downloads?tm=2).
 
 soar-datacollector (via SML) needs to link to dynamic libraries in the `bin` subfolder of Soar at runtime.
 * If you already have an environment, you will already have dealt with this problem.
