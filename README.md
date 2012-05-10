@@ -36,7 +36,7 @@ soar-datacollector also depends on `sml.jar` found in [Soar 9.3.2](http://code.g
 
 soar-datacollector (via SML) needs to link to dynamic libraries in the `bin` subfolder of Soar at runtime.
 * If you already have an environment, you will already have dealt with this problem.
-* If you are trying to run the example code in this demo, set the appropriate environment variable for your system in the Run/Debug configuration:
+* If you are trying to run the example code in this demo in Eclipse, set the appropriate environment variable for your system in the Run/Debug configuration:
     * Run -> Run Configurations...
     * DataCollectorExample
     * Environment tab
@@ -44,6 +44,7 @@ soar-datacollector (via SML) needs to link to dynamic libraries in the `bin` sub
         * Windows: `PATH` to `C:\path\to\soar\bin`
         * Mac: `DYLD_LIBRARY_PATH` to `/path/to/soar/bin`
         * Linux: `LD_LIBRARY_PATH` to `/path/to/soar/bin`
+* If you are trying to run in some other environment like a shell, set your environment variables as above.
 
 ## UnsatisfiedLinkError
 
