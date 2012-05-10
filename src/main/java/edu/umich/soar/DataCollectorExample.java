@@ -1,6 +1,7 @@
 package edu.umich.soar;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import sml.Agent;
 import sml.Kernel;
@@ -11,6 +12,9 @@ import sml.smlUpdateEventId;
 
 public class DataCollectorExample 
 {
+    private static final String PRODUCTIONS = "agents/Arithmetic/arithmetic.soar";
+    private static final AtomicBoolean stop = new AtomicBoolean();
+    
 	public static void main(String[] args) throws IOException
 	{
 	    // Create kernel and agent
@@ -18,16 +22,10 @@ public class DataCollectorExample
         final Agent agent = kernel.CreateAgent("soar");
         
         // TODO: Need a custom agent that generates some more interesting stats
-        try
+        if (!agent.LoadProductions(PRODUCTIONS))
         {
-            ProductionUtils.sourceAgentFromJar(agent, "/agents/Arithmetic/arithmetic.soar");
+            throw new IllegalStateException("Failed to load " + PRODUCTIONS);
         }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-            System.exit(1);
-        }
-        
         
         final DataCollector dc = new DataCollector();
         
@@ -103,6 +101,15 @@ public class DataCollectorExample
         // To collect every n milliseconds, set the period
         dc.setPeriodMillis(500);
         agent.InitSoar();
+        
+        // Use Control-C to stop
+        Runtime.getRuntime().addShutdownHook(new Thread()
+        {
+            public void run()
+            { 
+                stop.set(true);
+            }
+        });
         System.out.println("Output (forever every .5 sec):");
         agent.RunSelfForever();
         
