@@ -8,7 +8,7 @@ General information on soar-datacollector is in the [slides](https://raw.github.
 
 # Jar
 
-[soar-datacollector.jar]() does not include source, example code, or dependency jars (see Runtime below).
+[soar-datacollector.jar](https://github.com/downloads/voigtjr/soar-datacollector/sdc.jar) does not include source, example code, or dependency jars (see Runtime below).
 
 # Compilation
 
